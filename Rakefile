@@ -41,3 +41,13 @@ task :default => :spec
 
 require 'yard'
 YARD::Rake::YardocTask.new
+
+require 'pry'
+desc "Start a Pry console with the gem required"
+task :pry do
+$LOAD_PATH.unshift("./lib")
+  Dir["./lib/*.rb"].each do |file|
+    Pry.config.requires << file
+  end
+  Pry.start
+end
