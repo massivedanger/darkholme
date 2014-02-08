@@ -15,10 +15,19 @@ module Darkholme
       end 
     end
 
+    module InstanceMethods
+      def wrap_with_hook(name)
+        run_hook "before_#{name}".to_sym
+        yield
+        run_hook "after_#{name}".to_sym
+      end
+    end
+
     def self.included(receiver)
       receiver.extend         ClassMethods
       receiver.send :include, Hooks
       receiver.send :include, Hooks::InstanceHooks
+      receiver.send :include, InstanceMethods
     end
   end
 end
