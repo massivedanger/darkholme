@@ -17,9 +17,9 @@ module Darkholme
 
     module InstanceMethods
       def wrap_with_hook(name)
-        run_hook "before_#{name}".to_sym
+        self.run_hook "before_#{name}".to_sym
         yield
-        run_hook "after_#{name}".to_sym
+        self.run_hook "after_#{name}".to_sym
       end
     end
 
