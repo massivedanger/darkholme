@@ -17,7 +17,7 @@ module Darkholme
     end
 
     def add_entity(entity)
-      wrap_with_hook(:add) do
+      wrap_with_hook(:add_entity) do
         @entities << entity
         entity.engine = self
         entity.added self
@@ -25,7 +25,7 @@ module Darkholme
     end
 
     def remove_entity(entity)
-      wrap_with_hook(:remove) do
+      wrap_with_hook(:remove_entity) do
         s.delete entity
         entity.engine = nil if entity.engine == self
         entity.removed self
