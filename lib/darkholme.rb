@@ -1,5 +1,6 @@
 require 'hooks'
 require 'darkholme/hookable'
+require 'darkholme/bitset'
 
 require 'darkholme/engine'
 require 'darkholme/entity'
