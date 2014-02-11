@@ -37,6 +37,13 @@ module Darkholme
       end
     end
 
+    def remove_system(systemClass)
+      wrap_with_hook(:remove_system) do
+        system = @systems.delete systemClass 
+        system.removed_from_engine(self) if system
+      end
+    end
+
     def system(systemClass)
       wrap_with_hook(:get_system) do
         @systems[systemClass]
