@@ -19,23 +19,21 @@ module Darkholme
     def add_entity(entity)
       wrap_with_hook(:add_entity) do
         @entities << entity
-        entity.engine = self
-        entity.added self
+        entity.added_to_engine self
       end
     end
 
     def remove_entity(entity)
       wrap_with_hook(:remove_entity) do
-        s.delete entity
-        entity.engine = nil if entity.engine == self
-        entity.removed self
+        @entities.delete entity
+        entity.removed_from_engine self
       end
     end
 
     def add_system(system)
       wrap_with_hook(:add_system) do
         @systems[system.class] = system
-        system.added self
+        system.added_to_engine self
       end
     end
 
@@ -51,7 +49,7 @@ module Darkholme
           [].tap do |entities|
             @entities.each do |entity|
               entities.add(entity) if family.matches?(entity)
-              end
+            end
           end
         end
       end

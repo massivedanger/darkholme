@@ -10,6 +10,14 @@ module Darkholme
         subject.add_entity(entity)
       }.to change { subject.entities.count }.from(0).to(1) 
     end
+
+    it "can remove an entity" do
+      subject.add_entity(entity)
+
+      expect { 
+        subject.remove_entity(entity)
+      }.to change { subject.entities.count }.from(1).to(0)
+    end
   end
 end
 
