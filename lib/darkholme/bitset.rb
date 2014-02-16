@@ -1,29 +1,52 @@
 module Darkholme
   class Bitset
-    attr_reader :bits
+    attr_accessor :bits
 
     def initialize(*initial_bits)
-      @bits = initial_bits.map {|bit| convert_bit(bit) }.inject(:+) || 0
+      self.bits = initial_bits.map {|bit| convert_bit(bit) }.inject(:+) || 0
     end
 
-    def add(bit)
-      @bits = @bits | convert_bit(bit) 
+    def set(bit, value = true)
+      if value
+        self.bits = self.bits | convert_bit(bit) 
+      elsif set?(bit)
+        flip(bit)
+      else
+        self.bits
+      end
     end
 
-    def remove(bit)
-      @bits = @bits ^ convert_bit(bit) 
+    def clear(bit)
+      set(bit, false) 
     end
 
-    def contains?(bit)
+    def flip(bit)
+      self.bits = self.bits ^ convert_bit(bit)
+    end
+
+    def set?(bit)
       bit = convert_bit(bit) 
-      @bits & bit == bit
+      self.bits & bit == bit
     end
 
     def to_s
-      @bits.to_s(2)  
+      self.bits.to_s(2)  
+    end
+
+    def [](index)
+      set?(index)
+    end
+
+    def []=(index, value)
+      set(index, value)
+    end
+
+    def ==(other)
+      self.bits == other.bits
     end
 
     private
+
     def convert_bit(bit)
       2 ** bit
     end

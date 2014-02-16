@@ -6,6 +6,7 @@ module Darkholme
       :removed_from_engine
 
     attr_accessor :engine
+    attr_reader :components, :component_bits, :family_bits
 
     def added_to_engine(engine)
       wrap_with_hook(:added_to_engine) do
@@ -17,6 +18,12 @@ module Darkholme
       wrap_with_hook(:removed_from_engine) do
         @engine = nil
       end
+    end
+
+    def add_component(component)
+      @components[component.class] = component
+      @component_bits.set
+                          uu
     end
   end
 end
