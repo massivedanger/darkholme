@@ -2,28 +2,58 @@ module Darkholme
   class Entity
     include Hookable
 
-    has_wrapping_hooks :init, :add, :remove, :added_to_engine,
-      :removed_from_engine
+    has_wrapping_hooks :init, :add_component, :remove_component, 
+      :added_to_engine, :removed_from_engine
 
-    attr_accessor :engine
-    attr_reader :components, :component_bits, :family_bits
+    attr_accessor :engine, :components, :component_bits, :family_bits
+
+    def initialize
+      wrap_with_hook(:init) do
+        self.components = {}
+        self.component_bits = Bitset.new
+        self.family_bits = Bitset.new
+        self.engine = nil
+      end
+    end
 
     def added_to_engine(engine)
       wrap_with_hook(:added_to_engine) do
-        @engine = engine
+        self.engine = engine
       end
     end
 
     def removed_from_engine(engine)
       wrap_with_hook(:removed_from_engine) do
-        @engine = nil
+        self.engine = nil
       end
     end
 
     def add_component(component)
-      @components[component.class] = component
-      @component_bits.set
-                          uu
+      wrap_with_hook(:add_component) do
+        self.components[component.class] = component
+        self.component_bits.set(component.bit)
+
+        component_for(component.class)
+      end
+    end
+
+    def remove_component(component_class)
+      wrap_with_hook(:remove_component) do
+        if removed_component = component(component_class)
+          self.component_bits.clear(removed_component.bit)
+          self.components.delete(component_class)
+        end
+
+        component_for(component_class) 
+      end
+    end
+
+    def has_component?(component_class)
+      component_for(component_class) ? true : false
+    end
+
+    def component_for(component_class)
+      self.components[component_class]
     end
   end
 end

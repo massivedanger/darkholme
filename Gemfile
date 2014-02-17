@@ -12,4 +12,5 @@ group :development do
   gem "simplecov", ">= 0"
 
   gem "guard-rspec", "~> 4.2.6", require: false
+  gem "inch", "~> 0.2.3"
 end
