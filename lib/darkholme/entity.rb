@@ -49,7 +49,7 @@ module Darkholme
     end
 
     def has_component?(component_class)
-      component_for(component_class) ? true : false
+      self.components.include? component_class
     end
 
     def component_for(component_class)

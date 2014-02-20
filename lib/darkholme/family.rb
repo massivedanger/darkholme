@@ -1,24 +1,40 @@
 module Darkholme
-  class Family
+  class Family 
+    @next_index = -1
     @families = {}
-    @index = 0
-
-    attr_reader :index
 
     class << self
-      def for(*componentClasses)
-        
+      attr_accessor :next_index
+    end
+
+    attr_reader :index, :bits
+
+    def self.for(*component_classes)
+      bits = Bitset.new
+      component_classes.each do |klass|
+        bits.set Component.bit_for(klass)
       end
+
+      hash = bits.to_i
+      family = @families[hash]
+      unless family
+        family = new bits
+        @families[hash] = family
+      end
+
+      family
     end
 
-    def initialize
-      @@index += 1
-
-      @index = @@index.dup
+    def member?(entity)
+      entity.component_bits.include?(bits)
     end
 
-    def matches?(entity)
-      
+    private
+
+    def initialize(bits)
+      @index = self.class.next_index += 1
+      @bits = bits
     end
   end
 end
+

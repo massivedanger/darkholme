@@ -1,15 +1,10 @@
 module Darkholme
   class Component
-    @next_bit = 0
+    @next_bit = -1 # So the first bit is 0
     @bits = {}
 
     def self.bit_for(klass)
-      unless @bits[klass]
-        @bits[klass] = @next_bit
-        @next_bit += 1
-      end
-
-      @bits[klass]
+      @bits[klass] ||= @next_bit += 1
     end
 
     def bit
