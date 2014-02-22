@@ -44,7 +44,7 @@ module Darkholme
       end
      
       describe "removing one" do
-        before { subject.add_component(component) }
+        let!(:added) { subject.add_component(component) }
 
         it "makes has_component? return false" do
           subject.remove_component(component.class)
