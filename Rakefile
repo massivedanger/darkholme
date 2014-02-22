@@ -9,9 +9,14 @@ rescue Bundler::BundlerError => e
   $stderr.puts "Run `bundle install` to install missing gems"
   exit e.status_code
 end
-require 'rake'
 
+require 'rake'
+require 'yard'
+require 'pry'
 require 'jeweler'
+require 'rspec/core'
+require 'rspec/core/rake_task'
+
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://guides.rubygems.org/specification-reference/ for more options
   gem.name = "darkholme"
@@ -25,8 +30,6 @@ Jeweler::Tasks.new do |gem|
 end
 Jeweler::RubygemsDotOrgTasks.new
 
-require 'rspec/core'
-require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec) do |spec|
   spec.pattern = FileList['spec/**/*_spec.rb']
 end
@@ -37,17 +40,15 @@ task :simplecov do
   Rake::Task['spec'].execute
 end
 
-task :default => :spec
-
-require 'yard'
 YARD::Rake::YardocTask.new
 
-require 'pry'
 desc "Start a Pry console with the gem required"
 task :pry do
-$LOAD_PATH.unshift("./lib")
+  $LOAD_PATH.unshift("./lib")
   Dir["./lib/*.rb"].each do |file|
     Pry.config.requires << file
   end
   Pry.start
 end
+
+task :default => :spec
