@@ -22,8 +22,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "darkholme"
   gem.homepage = "http://github.com/evanwalsh/darkholme"
   gem.license = "MIT"
-  gem.summary = %Q{An entity-component system in Ruby for libgdx}
-  gem.description = %Q{An entity-component system in Ruby for libgdx}
+  gem.summary = %Q{An entity-component system in Ruby for}
+  gem.description = %Q{An entity-component system in Ruby}
   gem.email = "evan@massivedanger.com"
   gem.authors = ["Massive Danger"]
   # dependencies defined in Gemfile
