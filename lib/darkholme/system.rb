@@ -10,11 +10,8 @@ module Darkholme
 
     attr_accessor :engine
 
-    def initialize
-    end
-
     def update(delta)
-      raise "You must override #update(delta)"
+      raise NotImplementedError.new("You must override #update(delta)")
     end
 
     def added_to_engine(engine)
