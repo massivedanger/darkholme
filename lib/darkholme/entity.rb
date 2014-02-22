@@ -20,7 +20,7 @@ module Darkholme
       self.components[component.class] = component
       self.component_bits.set(component.bit)
 
-      component_for(component.class)
+      component 
     end
 
     def remove_component(component_class)

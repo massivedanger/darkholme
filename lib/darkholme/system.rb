@@ -1,10 +1,5 @@
 module Darkholme
   class System
-    include Hookable
-
-    has_wrapping_hooks :init, :update, :added_to_engine, 
-      :removed_from_engine
-
     class << self
       attr_reader :family
 
