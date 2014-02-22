@@ -9,7 +9,7 @@ module Darkholme
       attr_reader :family
 
       def has_family(*component_classes)
-        @family = Family.for(component_classes) 
+        @family = Family.for(*component_classes) 
       end
     end
 

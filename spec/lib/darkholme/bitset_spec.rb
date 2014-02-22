@@ -18,6 +18,14 @@ module Darkholme
       expect(subject.set?(bit)).to eq(false)
     end
 
+    it "has a list of set indexes" do
+      subject.set(3)
+      subject.set(4)
+      subject.set(5)
+
+      expect(subject.set_indexes).to match_array([3, 4, 5])
+    end
+
     it "can clear bits" do
       subject.set(bit)
       expect(subject.set?(bit)).to eq(true)
@@ -29,12 +37,12 @@ module Darkholme
       expect(subject.set?(bit)).to eq(false) 
     end
 
-    it "can flip bits" do
-      subject.flip(bit)
-      expect(subject.set?(bit)).to eq(true)
+    it "removes the set index during a clear" do
+      subject.set(bit)
+      expect(subject.set_indexes).to include(bit)
+      subject.clear(bit)
 
-      subject.flip(bit)
-      expect(subject.set?(bit)).to eq(false)
+      expect(subject.set_indexes).to be_empty
     end
 
     it "can check for bit set status via array operators" do
@@ -54,6 +62,18 @@ module Darkholme
       subject.set(bit)
 
       expect(subject).to eq(other)
+    end
+
+    it "can check for complete inclusion of other bitsets" do
+      subject.set(3)
+      subject.set(4)
+      subject.set(5)
+
+      other = Bitset.new
+      other.set(4)
+      other.set(5)
+
+      expect(subject.include? other).to eq(true)
     end
   end
 end

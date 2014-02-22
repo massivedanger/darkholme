@@ -33,7 +33,6 @@ GEM
       rspec (>= 2.14, < 4.0)
     hashie (2.0.5)
     highline (1.6.20)
-    hooks (0.3.3)
     inch (0.2.3)
       sparkr (>= 0.2.0)
       term-ansicolor
@@ -109,7 +108,6 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.0)
   guard-rspec (~> 4.2.6)
-  hooks (~> 0.3.3)
   inch (~> 0.2.3)
   jeweler (~> 2.0.1)
   pry (~> 0.9.12.6)

@@ -3,7 +3,7 @@ require 'spec_helper'
 module Darkholme
   describe Engine do
     subject { Engine.new }
-    let(:entity) { Entity.new }
+    let(:entity) { MockEntity.new }
     let(:system) { MockSystem.new } 
 
     describe "with entities" do
@@ -19,6 +19,14 @@ module Darkholme
         expect { 
           subject.remove_entity(entity)
         }.to change { subject.entities.count }.from(1).to(0)
+      end
+      
+      it "can find them by family" do
+        entity.add_component(MockComponent.new)
+        subject.add_entity(entity)
+        subject.add_system(system)
+
+        expect(subject.entities_for_family(system.family)).to include(entity)
       end
     end
 
@@ -36,9 +44,15 @@ module Darkholme
           subject.remove_system(system.class)
         }.to change { subject.systems.count }.from(1).to(0)
       end
-    end
 
-    class MockSystem < System; end;
+      it "updates them" do
+        subject.add_system(system)
+        expect(system).to receive(:update).with(:delta)
+                                          .and_return(:updated)
+
+        subject.update(:delta)
+      end
+    end
   end
 end
 

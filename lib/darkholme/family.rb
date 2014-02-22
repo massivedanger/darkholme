@@ -1,6 +1,6 @@
 module Darkholme
   class Family 
-    @next_index = -1
+    @next_index = 0
     @families = {}
 
     class << self
@@ -16,13 +16,9 @@ module Darkholme
       end
 
       hash = bits.to_i
-      family = @families[hash]
-      unless family
-        family = new bits
-        @families[hash] = family
+      @families[hash] ||= begin
+        new bits
       end
-
-      family
     end
 
     def member?(entity)

@@ -1,6 +1,6 @@
 module Darkholme
   class Component
-    @next_bit = -1 # So the first bit is 0
+    @next_bit = 0
     @bits = {}
 
     def self.bit_for(klass)
