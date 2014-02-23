@@ -7,3 +7,7 @@ end
 class MockSystem < Darkholme::System
   has_family MockComponent
 end
+
+class MockIteratingSystem < Darkholme::IteratingSystem
+  has_family MockComponent
+end
