@@ -1,4 +1,5 @@
 module Darkholme
+  # A class for easier bitset management with handy bitwise methods
   class Bitset
     attr_reader :bits
     attr_reader :set_indexes
