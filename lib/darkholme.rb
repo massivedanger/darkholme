@@ -6,6 +6,6 @@ require 'darkholme/iterating_system'
 require 'darkholme/component'
 require 'darkholme/family'
 
+# Darkholme is an Entity-Component System by Massive Danger
 module Darkholme
-   
 end

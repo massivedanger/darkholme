@@ -17,7 +17,7 @@ module Darkholme
     #
     # @return [Fixnum] The bit for the instance's class
     def bit
-      Component.bit_for(self.class) 
+      Component.bit_for(self.class)
     end
   end
 end

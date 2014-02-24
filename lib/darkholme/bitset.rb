@@ -7,6 +7,8 @@ module Darkholme
     # Create a new Bitset with optional initial bits
     #
     # @param initial_bits [Array<Fixnum>] The initial bit indexes to set
+    #
+    # @return [Bitset] The new bitset
     def initialize(*initial_bits)
       @bits = initial_bits.map {|bit| convert_bit(bit) }.inject(:+) || 0
 
@@ -33,13 +35,13 @@ module Darkholme
       @bits
     end
 
-    # Set a bit at supplied index to 0 
+    # Set a bit at supplied index to 0
     #
     # @param bit [Fixnum] The index of the bit to modify
     #
     # @return [Fixnum] The bitset's integer representation after being modified
     def clear(bit)
-      set(bit, false) 
+      set(bit, false)
     end
 
     # Checks if a bit at an index is set to 1
@@ -48,7 +50,7 @@ module Darkholme
     #
     # @return [Boolean] Whether or not the bit is set to one
     def set?(bit)
-      bit = convert_bit(bit) 
+      bit = convert_bit(bit)
       intersect(bit) == bit
     end
 
@@ -67,7 +69,7 @@ module Darkholme
     #
     # @return [Fixnum] Bits after operation
     def intersect(other)
-      @bits & bits_from_object(other) 
+      @bits & bits_from_object(other)
     end
     alias_method :&, :intersect
 
@@ -85,7 +87,7 @@ module Darkholme
     #
     # @return [Fixnum] Bits after operation
     def xor(other)
-      @bits ^ bits_from_object(other) 
+      @bits ^ bits_from_object(other)
     end
     alias_method :^, :xor
 
@@ -103,7 +105,7 @@ module Darkholme
     #
     # @return [String] Binary of current bits
     def to_s
-      @bits.to_s(2)  
+      @bits.to_s(2)
     end
 
     # Return Integer representation of the bitset
