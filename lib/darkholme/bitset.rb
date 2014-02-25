@@ -6,7 +6,7 @@ module Darkholme
 
     # Create a new Bitset with optional initial bits
     #
-    # @param *initial_bits [Array<Fixnum>] The initial bit indexes to set
+    # @param initial_bits [Array<Fixnum>] The initial bit indexes to set
     #
     # @example Setting multiple bits initially
     #   Bitset.new 1, 2, 10, 30

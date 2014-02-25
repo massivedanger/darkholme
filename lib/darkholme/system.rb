@@ -8,7 +8,7 @@ module Darkholme
       # Set the family for a System. Call this from the body of the
       # class.
       #
-      # @param *component_classes [Array<Class>] List of component classes the system is
+      # @param component_classes [Array<Class>] List of component classes the system is
       #
       # @example Standard usage
       #   class MySystem < Darkholme::System

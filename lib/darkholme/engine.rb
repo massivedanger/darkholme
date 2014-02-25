@@ -62,14 +62,22 @@ module Darkholme
     #
     # @param system_class [Class] Class of the system to get
     #
+    # @example Standard usage
+    #   engine.system_for(MySystem)
+    #
     # @return [System] A System instance, if found
-    def system(system_class)
+    def system_for(system_class)
       @systems[system_class]
     end
 
     # Retrieve all entities matching Family provided
     #
     # @param family [Family] Family to use when checking entities
+    #
+    # @example Standard usage
+    #   engine.entities_for_family(
+    #     Family.for(MyComponent, AnotherComponent)
+    #   )
     #
     # @return [Array<Entity>] All entities matching provided Family
     def entities_for_family(family)
@@ -86,6 +94,9 @@ module Darkholme
     # frame in game.
     #
     # @param delta [Float] Time between last frame and this one
+    #
+    # @example Standard usage
+    #   engine.update(0.0008)
     def update(delta)
       @systems.each {|klass, system| system.update(delta) }
     end
