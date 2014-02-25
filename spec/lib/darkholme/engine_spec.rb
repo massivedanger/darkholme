@@ -4,23 +4,23 @@ module Darkholme
   describe Engine do
     subject { Engine.new }
     let(:entity) { MockEntity.new }
-    let(:system) { MockSystem.new } 
+    let(:system) { MockSystem.new }
 
     describe "with entities" do
       it "can add them" do
         expect {
           subject.add_entity(entity)
-        }.to change { subject.entities.count }.from(0).to(1) 
+        }.to change { subject.entities.count }.from(0).to(1)
       end
 
       it "can remove them" do
         subject.add_entity(entity)
 
-        expect { 
+        expect {
           subject.remove_entity(entity)
         }.to change { subject.entities.count }.from(1).to(0)
       end
-      
+
       it "can find them by family" do
         entity.add_component(MockComponent.new)
         subject.add_entity(entity)
@@ -51,6 +51,28 @@ module Darkholme
                                           .and_return(:updated)
 
         subject.update(:delta)
+      end
+    end
+
+    describe "with callbacks" do
+      let(:family) { Family.for(MockComponent) }
+      it "updates families upon component addition" do
+        subject.families[family] = []
+        entity.engine = subject
+
+        expect(subject.families[family]).not_to include(entity)
+        entity.add_component MockComponent.new
+        expect(subject.families[family]).to include(entity)
+      end
+
+      it "updates families upon component removal" do
+        subject.families[family] = [entity]
+        entity.engine = subject
+        entity.add_component MockComponent.new
+
+        expect(subject.families[family]).to include(entity)
+        entity.remove_component MockComponent
+        expect(subject.families[family]).not_to include(entity)
       end
     end
   end

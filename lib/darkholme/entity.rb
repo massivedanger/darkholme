@@ -2,7 +2,7 @@ module Darkholme
   # An Entity contains Components, which hold data which is manipulated
   # by a System
   class Entity
-    attr_accessor :engine, :components, :component_bits
+    attr_accessor :engine, :components, :component_bits, :family_bits
 
     # Create a new Entity
     #
@@ -10,6 +10,7 @@ module Darkholme
     def initialize
       self.components = {}
       self.component_bits = Bitset.new
+      self.family_bits = Bitset.new
       self.engine = nil
     end
 
@@ -35,6 +36,7 @@ module Darkholme
     def add_component(component)
       self.components[component.class] = component
       self.component_bits.set(component.bit)
+      self.engine.component_added(self, component) if self.engine
 
       component
     end
@@ -48,6 +50,7 @@ module Darkholme
       if removed_component = component_for(component_class)
         self.component_bits.clear(removed_component.bit)
         self.components.delete(component_class)
+        self.engine.component_removed(self, removed_component) if self.engine
       end
 
       removed_component

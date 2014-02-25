@@ -3,7 +3,7 @@ module Darkholme
   # Usually only one is needed for your entire game, although no limitation
   # is hardcoded. Use at your discretion.
   class Engine
-    attr_reader :systems, :entities
+    attr_reader :systems, :entities, :families
 
     # Create a new engine with empty systems and entities
     #
@@ -81,7 +81,7 @@ module Darkholme
     #
     # @return [Array<Entity>] All entities matching provided Family
     def entities_for_family(family)
-      @families[family.index] ||= begin
+      @families[family] ||= begin
         Set.new.tap do |entities|
           @entities.each do |entity|
             entities << entity if family.member?(entity)
@@ -101,5 +101,30 @@ module Darkholme
       @systems.each {|klass, system| system.update(delta) }
     end
 
+    # A callback called every time an entity added to the engine
+    # has a component added. Updates all associated families
+    def component_added(entity, component)
+      @families.each do |family, entities|
+        unless entity.family_bits.set?(family.index)
+          if family.member?(entity)
+            entities << entity
+            entity.family_bits.set(family.index)
+          end
+        end
+      end
+    end
+
+    # A callback called every time an entity added to the engine
+    # has a component removed. Updates all associated families
+    def component_removed(entity, component)
+      @families.each do |family, entities|
+        if entity.family_bits.set?(family.index)
+          unless family.member?(entity)
+            entities.delete(entity)
+            entity.family_bits.clear(family.index)
+          end
+        end
+      end
+    end
   end
 end

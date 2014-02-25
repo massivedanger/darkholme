@@ -41,8 +41,17 @@ module Darkholme
 
           subject.add_component(component)
         end
+
+        it "notifies the engine" do
+          subject.engine = Engine.new
+          expect(subject.engine).to receive(:component_added).with(
+            subject, component
+          )
+
+          subject.add_component(component)
+        end
       end
-     
+
       describe "removing one" do
         let!(:added) { subject.add_component(component) }
 
@@ -62,8 +71,17 @@ module Darkholme
 
           subject.remove_component(component.class)
         end
+
+        it "notifies the engine" do
+          subject.engine = Engine.new
+          expect(subject.engine).to receive(:component_removed).with(
+            subject, component
+          )
+
+          subject.remove_component(component.class)
+        end
       end
-      
+
       it "returns a component instance when asked for one" do
         subject.add_component(component)
         expect(subject.component_for(component.class)).to be_a MockComponent
