@@ -7,6 +7,16 @@
 Darkholme is an [entity-component system](http://en.wikipedia.org/wiki/Entity_component_system)
 written in Ruby. It's still early days for it, but I think it's ready for most basic use cases.
 
+## Installation
+
+Just add this line to your project's Gemfile
+
+```
+gem "darkholme"
+```
+
+Then, just `require "darkholme"` in your project and you're on your way!
+
 ## Usage
 
 First, you need to create an **Engine** to hold all the other parts of Darkholme.
