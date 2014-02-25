@@ -1,4 +1,7 @@
 module Darkholme
+  # An Engine contains all of a game's entities, components, and systems.
+  # Usually only one is needed for your entire game, although no limitation
+  # is hardcoded. Use at your discretion.
   class Engine
     attr_reader :systems, :entities
 

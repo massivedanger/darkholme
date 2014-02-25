@@ -1,4 +1,6 @@
 module Darkholme
+  # An Entity contains Components, which hold data which is manipulated
+  # by a System
   class Entity
     attr_accessor :engine, :components, :component_bits
 
@@ -20,7 +22,7 @@ module Darkholme
       self.components[component.class] = component
       self.component_bits.set(component.bit)
 
-      component 
+      component
     end
 
     def remove_component(component_class)
