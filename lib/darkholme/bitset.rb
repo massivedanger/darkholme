@@ -63,7 +63,7 @@ module Darkholme
     #
     # @return [Boolean] Whether or not all bits are flipped in both
     def include?(other)
-      set_indexes & other.set_indexes == other.set_indexes
+      set_indexes.sort & other.set_indexes.sort == other.set_indexes.sort
     end
 
     # Perform a bitwise AND

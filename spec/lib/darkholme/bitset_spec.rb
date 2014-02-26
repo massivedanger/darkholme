@@ -29,12 +29,12 @@ module Darkholme
     it "can clear bits" do
       subject.set(bit)
       expect(subject.set?(bit)).to eq(true)
-      
+
       expect {
         subject.clear(bit)
       }.to change { subject.bits }
 
-      expect(subject.set?(bit)).to eq(false) 
+      expect(subject.set?(bit)).to eq(false)
     end
 
     it "removes the set index during a clear" do
@@ -72,6 +72,18 @@ module Darkholme
       other = Bitset.new
       other.set(4)
       other.set(5)
+
+      expect(subject.include? other).to eq(true)
+    end
+
+    it "can check for inclusion even if the orders are different" do
+      subject.set(10)
+      subject.set(7)
+      subject.set(4)
+
+      other = Bitset.new
+      other.set(4)
+      other.set(10)
 
       expect(subject.include? other).to eq(true)
     end
