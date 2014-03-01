@@ -4,6 +4,26 @@ module Darkholme
   class Entity
     attr_accessor :engine, :components, :component_bits, :family_bits
 
+    # Create a new Entity from a JSON manifest
+    #
+    # @param source [Object] An object that works with JSON.parse
+    #
+    # @return [Entity] The new Entity
+    def self.load(source)
+      data = JSON.parse(source)
+      components = []
+      data["components"].each do |component_class, args|
+        components << class_from_string(component_class).from_json(args)
+      end
+
+      entity = new
+      components.each do |component|
+        entity.add_component(component)
+      end
+
+      entity
+    end
+
     # Create a new Entity
     #
     # @return [Entity] The new Entity
@@ -73,5 +93,12 @@ module Darkholme
     def component_for(component_class)
       self.components[component_class]
     end
+
+    def self.class_from_string(class_string)
+      class_string.split("::").inject(Object) do |mod, class_name|
+        mod.const_get class_name
+      end
+    end
+    private_class_method :class_from_string
   end
 end

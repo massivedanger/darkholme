@@ -13,6 +13,15 @@ module Darkholme
       @bits[klass] ||= @next_bit += 1
     end
 
+    # Create a new Component instance from arguments from a data file
+    #
+    # @param data [Hash] The arguments passed from the JSON file
+    #
+    # @return [Component] A new component instance
+    def self.from_json(data = {})
+      new
+    end
+
     # Get the current instance's class' bit
     #
     # @return [Fixnum] The bit for the instance's class
