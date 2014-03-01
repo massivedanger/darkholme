@@ -16,5 +16,10 @@ module Darkholme
                                             .and_return(:bit)
       expect(subject.bit).to eq(:bit)
     end
+
+    it "can be made from_json" do
+      component = MockComponent.from_json({})
+      expect(component).to be_a MockComponent
+    end
   end
 end

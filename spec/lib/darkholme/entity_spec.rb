@@ -87,5 +87,22 @@ module Darkholme
         expect(subject.component_for(component.class)).to be_a MockComponent
       end
     end
+
+    it "can be created from a JSON manifest" do
+      entity = Entity.load(entity_json)
+      expect(entity.has_component? MockComponent).to eq(true)
+    end
+
+    private
+
+    def entity_json
+      <<-JSON
+{
+  "components": {
+    "MockComponent": {}
+  }
+}
+      JSON
+    end
   end
 end
