@@ -26,6 +26,16 @@ module Darkholme
       entity.added_to_engine self
     end
 
+    # Add an entity from a manifest file
+    #
+    # @param manifest [Object] An Object that is acceptable to JSON.parse
+    #
+    # @return Result of #add_entity
+    def add_entity_from_manifest(manifest)
+      entity = Entity.load(manifest)
+      add_entity(entity)
+    end
+
     # Remove an entity from the engine (with callbacks). Once removed,
     # the entity will no longer be updated during the update loop
     #

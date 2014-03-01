@@ -10,7 +10,7 @@ module Darkholme
     #
     # @return [Entity] The new Entity
     def self.load(source)
-      data = JSON.parse(source)
+      data = JSON.load(source)
       components = []
       data["components"].each do |component_class, args|
         components << class_from_string(component_class).from_json(args)

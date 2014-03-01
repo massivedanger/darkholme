@@ -13,6 +13,12 @@ module Darkholme
         }.to change { subject.entities.count }.from(0).to(1)
       end
 
+      it "can add them from a manifest" do
+        expect {
+          subject.add_entity_from_manifest(entity_json)
+        }.to change { subject.entities.count }.from(0).to(1)
+      end
+
       it "can remove them" do
         subject.add_entity(entity)
 
@@ -74,6 +80,18 @@ module Darkholme
         entity.remove_component MockComponent
         expect(subject.families[family]).not_to include(entity)
       end
+    end
+
+    private
+
+    def entity_json
+      <<-JSON
+{
+  "components": {
+    "MockComponent": {}
+  }
+}
+      JSON
     end
   end
 end
