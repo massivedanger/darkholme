@@ -1,3 +1,5 @@
+require 'json'
+
 require 'darkholme/bitset'
 require 'darkholme/engine'
 require 'darkholme/entity'

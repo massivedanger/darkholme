@@ -13,7 +13,7 @@ module Darkholme
       data = JSON.parse(source)
       components = []
       data["components"].each do |component_class, args|
-        components << Object.const_get(component_class).from_json(args)
+        components << class_from_string(component_class).from_json(args)
       end
 
       entity = new
@@ -93,5 +93,12 @@ module Darkholme
     def component_for(component_class)
       self.components[component_class]
     end
+
+    def self.class_from_string(class_string)
+      class_string.split("::").inject(Object) do |mod, class_name|
+        mod.const_get class_name
+      end
+    end
+    private_class_method :class_from_string
   end
 end
