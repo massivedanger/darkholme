@@ -1,4 +1,4 @@
-require 'json'
+require 'multi_json'
 
 require 'darkholme/bitset'
 require 'darkholme/engine'

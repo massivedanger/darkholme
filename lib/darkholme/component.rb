@@ -18,7 +18,7 @@ module Darkholme
     # @param data [Hash] The arguments passed from the JSON file
     #
     # @return [Component] A new component instance
-    def self.from_json(data = {})
+    def self.from_manifest(data = {})
       new
     end
 

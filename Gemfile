@@ -1,5 +1,7 @@
 source "http://rubygems.org"
 
+gem "multi_json", "~> 1.8.4"
+
 group :development do
   gem "pry", "~> 0.9.12.6"
   gem "rspec", "~> 3.0.0.beta1"

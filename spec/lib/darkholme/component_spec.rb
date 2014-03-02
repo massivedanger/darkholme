@@ -17,8 +17,8 @@ module Darkholme
       expect(subject.bit).to eq(:bit)
     end
 
-    it "can be made from_json" do
-      component = MockComponent.from_json({})
+    it "can be made from a manifest" do
+      component = MockComponent.from_manifest {}
       expect(component).to be_a MockComponent
     end
   end

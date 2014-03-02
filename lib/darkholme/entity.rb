@@ -6,14 +6,14 @@ module Darkholme
 
     # Create a new Entity from a JSON manifest
     #
-    # @param source [Object] An object that works with JSON.parse
+    # @param source [Object] An object that works with MultiJson.load
     #
     # @return [Entity] The new Entity
     def self.load(source)
-      data = JSON.load(source)
+      data = MultiJson.load(source)
       components = []
-      data["components"].each do |component_class, args|
-        components << class_from_string(component_class).from_json(args)
+      data["components"].each do |component_class, data|
+        components << class_from_string(component_class).from_manifest(data)
       end
 
       entity = new
